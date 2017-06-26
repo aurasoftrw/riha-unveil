@@ -1,0 +1,68 @@
+
+   <script type="text/javascript"
+   src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+   </script>
+
+   <script type="text/javascript">
+   // Do not remove this (it's just a comment and won't effect the functions)
+   // SimpleCaptcha v1.0 © Anudeep Tubati
+
+     $(document).ready(function(){
+   function ChangeCaptcha() {
+     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ";
+   	var string_length = 5;
+   	var ChangeCaptcha = '';
+   	for (var i=0; i<string_length; i++) {
+   		var rnum = Math.floor(Math.random() * chars.length);
+   		ChangeCaptcha += chars.substring(rnum,rnum+1);
+   	}
+   	document.getElementById('randomfield').value = ChangeCaptcha;
+   }
+
+   function check() {
+     if(document.getElementById('CaptchaEnter').value == document.getElementById('randomfield').value ) {
+       submitit();
+     }
+     else {
+       alert('Please re-check the captcha');
+     }
+   }
+
+   function submitit(){
+
+
+     $('form.ajax').on('submit', function(event){
+        event.preventDefault();
+
+  var that = $(this),
+      url = that.attr('action'),
+      type = that.attr('method'),
+      data = {};
+  that.find('[name]').each(function(name, value){
+    var that = $(this),
+        name = that.attr('name'),
+        value = that.val();
+      data[name] = value;
+  });
+
+    $.ajax({
+      url: url,
+      type: type,
+      data: data,
+      success : function(){
+        alert("Reservation Submitted.");
+        $("#form").fadeOut("slow");
+      },
+      faliure : function(){
+        alert("Error occurred. Please submit again.");
+      }
+    })
+
+
+ });
+
+    });
+
+
+
+   </script>
